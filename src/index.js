@@ -82,9 +82,20 @@ function handleFormSubmission(e) {
   // rendering the new review 
   renderReview(newReview);
 
+  // updating the average rating
+  averageRating();
+
   // resetting the form fields after the submission
   form.reset();
 }
 
 // event listener for the submission
 form.addEventListener('submit', handleFormSubmission);
+
+function averageRating() {
+  const averageRating =  calculateStarAverage(reviews);
+  const starRating = document.querySelector('.starRating'); 
+  starRating.textContent = `Star Rating: ${averageRating.toFixed(1)} stars`;
+}
+
+averageRating();
