@@ -26,29 +26,23 @@ const reviews = [
 import { calculateStarAverage } from './logic.js'; 
 
 function renderReview(review) {
-  // main content container
   const reviewContainer = document.createElement('div');
   reviewContainer.classList.add('review_container'); 
 
-  // image element
   const img = document.createElement('img'); 
   img.src = review.image; 
   reviewContainer.appendChild(img);
 
-  // second div container
   const details = document.createElement('div');
 
-  // username
   const username = document.createElement('p');
   username.textContent = review.username;
   details.appendChild(username);
 
-  // star rating
   const starRating = document.createElement('p');
   starRating.textContent = `${review.star} stars`; 
   details.appendChild(starRating);
 
-  // review 
   const reviewText = document.createElement('p');
   reviewText.textContent = review.review; 
   details.appendChild(reviewText);
@@ -62,3 +56,35 @@ function renderReview(review) {
 
 // rendering each review and looping through it
 reviews.forEach(renderReview);
+
+// selecting the form
+const form = document.querySelector('form');
+
+function handleFormSubmission(e) {
+  e.preventDefault(); 
+
+  const username = document.getElementById('username').value;
+  const image = document.getElementById('image').value;
+  const star = parseInt(document.getElementById('star').value);  
+  const reviewText = document.getElementById('review').value;
+
+  // creating a new review Object
+  const newReview = {
+    username: username,
+    image: image,
+    star: star,
+    review: reviewText,
+  };
+
+  // adding a new review to the original reviews array
+  reviews.push(newReview);
+
+  // rendering the new review 
+  renderReview(newReview);
+
+  // resetting the form fields after the submission
+  form.reset();
+}
+
+// event listener for the submission
+form.addEventListener('submit', handleFormSubmission);
